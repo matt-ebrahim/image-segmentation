@@ -13,7 +13,7 @@ LABELS_TR_DIR = os.path.join(RAW_DATA_DIR, "labelsTr")
 IMAGES_TS_DIR = os.path.join(RAW_DATA_DIR, "imagesTs")
 
 # Download settings
-DOWNLOAD_URL = "https://msd-for-human-interpretation.s3-us-west-2.amazonaws.com/Task06_Lung.tar"
+DOWNLOAD_URL = "https://msd-for-monai.s3-us-west-2.amazonaws.com/Task06_Lung.tar"
 DATASET_TAR_FILE = os.path.join(DATA_DIR, "Task06_Lung.tar")
 
 # Training Hyperparameters
@@ -44,7 +44,11 @@ DICE_LOSS_WEIGHT = 0.5
 CE_LOSS_WEIGHT = 0.5
 
 # Device
-DEVICE = "cuda" if os.environ.get("CUDA_VISIBLE_DEVICES") or os.path.exists("/proc/driver/nvidia") else "cpu"
+DEVICE = (
+    "cuda"
+    if os.environ.get("CUDA_VISIBLE_DEVICES") or os.path.exists("/proc/driver/nvidia")
+    else "cpu"
+)
 
 # Logging
 LOG_DIR = os.path.join(PROJECT_ROOT, "logs")
