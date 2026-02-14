@@ -107,7 +107,10 @@ def train_one_epoch(loader, model, criterion, optimizer, device, scaler, epoch):
                 # Add auxiliary losses
                 aux_weight = 0.25
                 for i in range(1, len(predictions)):
-                    aux_loss, _, _ = criterion(predictions[i], targets)
+                    # Downsample targets to match auxiliary output size
+                    aux_pred = predictions[i]
+                    aux_targets = F.interpolate(targets.float(), size=aux_pred.shape[2:], mode='nearest')
+                    aux_loss, _, _ = criterion(aux_pred, aux_targets)
                     loss += aux_weight * aux_loss
             else:
                 # Standard case
